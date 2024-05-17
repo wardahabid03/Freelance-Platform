@@ -1,0 +1,153 @@
+*{
+    font-size: 18px;
+}
+table,td{
+    border:2px solid;
+    padding:20px;
+    border:1px solid  rgb(117, 117, 117);
+    border-collapse: collapse;
+}
+
+td{
+  padding: 10px;
+ 
+}
+input{
+    padding:10px;
+    
+    border-radius: 5px;
+}
+textarea{
+  padding:10px;
+  border:2px solid #0c356a;
+  border-radius: 5px;
+  font-size:15px;
+}
+
+input {
+  border:2px solid #0c356a;
+  
+}
+#signup-form{
+  margin-top:-50px;
+  margin-left:200px;
+  border-radius:15px;
+  box-shadow:0px 4px 10px #0c356a;
+  background-color: rgba(173, 216, 230, 0.418);
+  width: 70%;
+  padding: 40px;
+ 
+}
+
+
+
+ label{
+  position:absolute;
+ margin-left: 50px;
+ margin-top:20px;
+ font-weight: bold;
+
+ }
+
+ body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header2 {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 350px;
+    overflow: hidden;
+    background-color: #0c356a;
+  }
+  .header {
+    margin: -15px;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+  
+    padding: 25px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    text-decoration: underline;
+    background-color: rgb(103, 158, 206);
+  }
+  
+  .b1 {
+    background-color: white;
+    padding: 8px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-left: 300px;
+    border: 3px solid lightblue;
+  }
+  .b1 a {
+    text-decoration: none;
+    color: #0c356a;
+  
+    font-weight: bold;
+  }
+  
+  .b1:hover {
+    background-color: #cee2fc;
+  }
+  .b2 {
+    margin-left: 700px;
+    margin-top: -25px;
+  
+    font-size: 14px;
+  }
+  .b2 a {
+    color: white;
+  }
+  
+  
+  
+
+  select{
+    padding: 7px;
+    border:2px solid #0c356a;
+    font-size:15px;
+    margin-top:16px;
+    color:gray;
+  }
+  select>option{
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    font-size:15px;
+    color: #0c356a;
+  }
+  
+.position, .select{
+    position: absolute;
+    left:500px;
+}
+#add-certificate{
+  color: #0c356a;
+  border:1px solid #0c356a;
+  border-radius:3px;
+  
+  
+}
+#add-skill{
+  color: #0c356a;
+  border:1px solid #0c356a;
+  border-radius:3px;
+  
+}
+
+.GiBu{
+  background-color: #0c356a;
+  color:white;
+  cursor:pointer;
+}

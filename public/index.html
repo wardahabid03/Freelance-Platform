@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="header">
+      <ul class="header2">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="#Services">Services</a></li>
+        <li><a href="gigDisplay.html">Hire Freelancers</a></li>
+
+        <button class="b1"><a href="signup.html">Sign up</a></button>
+        <h4 class="b2"><a href="login.html">Sign in</a></h4>
+      </ul>
+    </div>
+    <div class="part2">
+      <img id="i1" src="images/oo.jpg" />
+      <h1 id="main">Find & Hire<br />Top Freelancers</h1>
+      <p>
+        Empower Your Talent, Elevate Your Career:<br />
+        Where Freelancers Thrive and Opportunities Unfold
+      </p>
+
+      <div class="dropdown">
+        <input
+          id="searchcon"
+          type="text"
+          placeholder="What skill are you looking for?"
+          oninput="filterSkillsDropdown()"
+        />
+        <div id="dropdown-container" class="dropdown-container"></div>
+      </div>
+
+      <img id="i2" src="images/loupe.png" />
+    </div>
+    <div class="container">
+      <!-- Updated links to include the category parameter -->
+      <button id="g1"><a href="gigDisplay.html?category=Graphics%20and%20Design">Graphic Design</a></button>
+      <button id="c1"><a href="gigDisplay.html?category=Digital%20Marketing">Digital Marketing</a></button>
+      <button id="d1"><a href="gigDisplay.html?category=Writing%20and%20Translation">Content Writing</a></button>
+      <button id="p1"><a href="gigDisplay.html?category=Programming%20and%20Tech">Programming & Tech</a></button>
+    </div>
+    <div>
+      <h1 id="m1">Find Expert Freelancers</h1>
+      <div class="category1">
+        <button id="gr1">
+          <img src="images/web-design.png" alt="Graphic Design Logo" />
+          <a href="gigDisplay.html?category=Graphics%20and%20Design">Graphic Design&nbsp;</a>
+        </button>
+        <button id="gr1">
+          <img src="images/content.png" alt="Content Logo" />
+          <a href="gigDisplay.html?category=Writing%20and%20Translation">Content Writing&nbsp;</a>
+        </button>
+        <button id="gr1">
+          <img
+            src="images/digital-marketing.png"
+            alt=" digital-marketing Logo"
+          />
+          <a href="gigDisplay.html?category=Digital%20Marketing">Digital Marketing </a>
+        </button>
+      </div>
+      <div class="category2">
+        <button id="gr1">
+          <img src="images/animation.png" alt="Animation Logo" />
+          <a href="gigDisplay.html?category=Video%20and%20Animation">Video/Animation</a>
+        </button>
+        <button id="gr1">
+          <img src="images/copywriter.png" alt="Data Logo" />
+          <a href="gigDisplay.html?category=Data">Data Entry</a>
+        </button>
+        <button id="gr1">
+          <img src="images/programming-course.png" alt="programming Logo" />
+          <a href="gigDisplay.html?category=Programming%20and%20Tech">Programming & Tech</a>
+        </button>
+      </div>
+    </div>
+    <div class="choose">
+      <h1>Why Choose us?</h1>
+      <img id="colimg1" src="images/variety.png" />
+      <img id="colimg2" src="images/uyt-removebg-preview.png" />
+      <img id="colimg3" src="images/trust.png" />
+
+      <div class="col1">
+        <h4 id="col1h1">Diverse Talent Pool</h4>
+        <p id="textcol1">
+          Find the Perfect Match for Your Project –<br />
+          Our Platform is Home to All Kinds of Skilled <br />Freelancers:
+          Designers, Tech Wizards, and<br />
+          Marketing Pros Ready to Make Your Ideas Shine!
+        </p>
+        <h4>Trust and Security</h4>
+        <p id="textcol1">
+          Your peace of mind matters to us. Our platform <br />prioritizes trust
+          and security, implementing robust<br />
+          measures to safeguard your transactions and <br />personal
+          information.
+        </p>
+      </div>
+      <img id="col2img1" src="images/quality-assurance.png" />
+      <img id="col2img2" src="images/news.png" />
+      <div class="col2">
+        <h4>Quality Assurance</h4>
+        <p id="textcol2">
+          We value quality work. Our platform<br />
+          encourages freelancers to deliver top-notch<br />
+          results, and we support this commitment<br />
+          through ratings system.
+        </p>
+        <h4>Clear Understanding</h4>
+        <p id="textcol2">
+          We believe in transparency. No hidden fees, no<br />
+          surprises. Our straightforward processes ensure<br />
+          you have a clear understanding of project details,<br />
+          timelines, and costs from the get-go.
+        </p>
+      </div>
+    </div>
+    <div class="footer">
+      <small>Copyrights reserved @2024</small>
+    </div>
+  </body>
+</html>

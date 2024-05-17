@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Processing View</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f4f7fc; /* Light blue background */
+      color: #333; /* Dark text color */
+    }
+
+    h2 {
+      color: #0c356a; /* Blue header color */
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+    }
+
+    th, td {
+      border: 1px solid #bdd8f9; /* Light blue border color */
+      text-align: left;
+      padding: 12px;
+    }
+
+    th {
+      background-color: #0c356a; /* Blue header background */
+      color: #fff; /* White text color */
+    }
+
+    tbody tr:hover {
+      background-color: #e1ebf8; /* Hover effect */
+    }
+
+    .total-profit, .profit-this-month {
+      font-size: 18px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #0c356a;
+      color: #fff;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Payment Processing View</h2>
+
+  <div class="total-profit" id="totalProfit">Total Profit: Loading...</div>
+  <div class="profit-this-month" id="profitThisMonth">Profit This Month: Loading...</div>
+
+  <table id="paymentTable">
+    <thead>
+      <tr>
+        <th>Project ID</th>
+        <th>Client ID</th>
+        <th>Freelancer ID</th>
+        <th>Project Name</th>
+        <th>Project Status</th>
+        <th>Payment ID</th>
+        <th>Amount</th>
+        <th>Client Pay Status</th>
+        <th>Reciever Status</th>
+        <th>Date and Time</th>
+        <th>Earned Profit($)</th>
+        <!-- Add more columns based on your view structure -->
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Table rows will be dynamically populated with data from the backend -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchData() {
+      const response = await fetch('/data');
+      const data = await response.json();
+
+      console.log(data);
+
+      const totalProfitElement = document.getElementById('totalProfit');
+      const profitThisMonthElement = document.getElementById('profitThisMonth');
+      const tableBody = document.querySelector('#paymentTable tbody');
+
+      let totalProfit = 0;
+      let profitThisMonth = 0;
+
+      data.forEach(row => {
+        const newRow = tableBody.insertRow();
+
+        // Explicitly reference the earned_profit column by name
+        const earnedProfit = parseFloat(row[10]);
+
+        totalProfit += earnedProfit;
+
+        const currentDate = new Date();
+        const paymentDate = new Date(row[9]);
+        if (currentDate.getMonth() === paymentDate.getMonth() && currentDate.getFullYear() === paymentDate.getFullYear()) {
+          profitThisMonth += earnedProfit;
+        }
+
+        // Exclude the last two columns from being displayed in the table
+        for (let i = 0; i < row.length - 2; i++) {
+          const cell = newRow.insertCell();
+          cell.textContent = row[i];
+        }
+      });
+
+      totalProfitElement.textContent = `Total Profit: Rs ${totalProfit.toFixed(2)}/_`;
+      profitThisMonthElement.textContent = `Profit This Month: Rs ${profitThisMonth.toFixed(2)}/_`;
+    }
+
+    fetchData();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* Body styles */
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0px;
+  overflow-x: hidden;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+.header2 {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 350px;
+  overflow: hidden;
+  background-color: #0c356a;
+}
+.header {
+  margin: -15px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+
+  padding: 25px;
+  text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: underline;
+  background-color: rgb(103, 158, 206);
+}
+
+.b1 {
+  background-color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-left: 300px;
+  border: 3px solid lightblue;
+}
+.b1 a {
+  text-decoration: none;
+  color: #0c356a;
+
+  font-weight: bold;
+}
+
+.b1:hover {
+  background-color: #cee2fc;
+}
+.b2 {
+  margin-left: 700px;
+  margin-top: -25px;
+
+  font-size: 14px;
+}
+.b2 a {
+  color: white;
+}
+/* Container holding the gigs */
+.gigsList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-left: 25px;
+  margin-top: 30px;
+}
+
+/* Individual gig styles */
+.gigDiv {
+  background-color: #fff;
+  box-shadow: 0 5px 5px #0c356a80;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  width: calc(23.33% - 50px); /* Adjust width as per your layout */
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.gigDiv:hover {
+  transform: scale(1.05);
+}
+
+/* Gig content styles */
+.gigDiv p {
+  margin: 8px 0;
+}
+.line {
+  margin-left: 40px;
+  color: rgb(101, 101, 101);
+  padding-bottom: 10px;
+}
+hr {
+  border-color: #0c356a;
+  border-width: 1px;
+}

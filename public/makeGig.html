@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="fstyles.css">
+  <title>Create Gig</title>
+</head>
+
+<body>
+  <div class="header">
+    <ul class="header2">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="About.html">About</a></li>
+      <li><a href="#Services">Services</a></li>
+      <li><a href="gigDisplay.html">Hire Freelancers</a></li>
+      <button class="b1"><a href="signup.html">Sign up</a></button>
+      <h4 class="b2"><a href="login.html">Sign in</a></h4>
+    </ul>
+  </div>
+  <br>
+  <br><br><br><br>
+  <form id="signup-form" action="/createGig" method="post">
+<div class="background">
+    <label for="G-title">Gig Title</label>
+    <textarea id="G-title" name="gigName" class="position" cols="75" rows="2" placeholder="Write a short simple Title....."></textarea>
+    <br><br><br><br>
+
+    <label for="G-desc">Gig Description</label>
+    <textarea id="G-desc" name="gigDescription" class="position" cols="75" rows="10" placeholder="Write a description that clearly defines your expertise and experience and what you offer to the buyers..... "></textarea>
+    <br><br><br><br> <br><br><br><br>
+    <br><br><br><br>
+    <br>
+
+    <label for="category">Category:</label>
+    <select class="select" name="category" id="category" onchange="populateSubCategories()">
+      <option value="" disabled selected hidden>Select a Category</option>
+      <option value="Graphics and Design">Graphic and Design</option>
+      <option value="Digital Marketing">Digital Marketing</option>
+      <option value="Writing and Translation">Writing and Translation</option>
+      <option value="Programming and Tech">Programming and Tech</option>
+      <option value="Video and Animation">Video and Animation</option>
+      <option value="Data">Data</option>
+    </select>
+
+   
+    <select id="subcategory" name="subcategory" style="position: absolute; left: 800px; top:522px;">
+      
+      <!-- This will be populated dynamically -->
+    </select>
+    <br><br><br>
+<div><div style="padding-top: 30px;">
+    <label for="skills" style="margin-top:15px;">Skills:</label>
+    </div></div>
+    <div id="skills-container" class="position">
+        <div class="skill-input">
+            <input type="text" name="skills" class="skill" class="position">
+        </div>
+    </div>
+    <br><br>
+    <button type="button" id="add-skill" style="position: absolute; width:30px; height:30px; left: 770px; top:620px">+</button>
+<br><br><br>
+
+
+
+<div><div style="padding-top: 10px;">
+    <label for="skills" style="margin-top:18px;">Certificates:</label>
+    </div></div>
+    <div id="certificate-container" class="position">
+        <div class="skill-input">
+            <input type="text" name="certificates" class="skill" class="position">
+        </div>
+    </div>
+    <br><br>
+    <button  type="button" id="add-certificate" style="position: absolute; width:30px; height:30px; left: 770px; top:737px">+</button>
+    <br><br><br>
+
+    <!-- <label for="tags">Search Tags</label>
+    <input type="text" id="tags" name="tags" class="position">
+    <input type="text" id="tags" name="tags" style="position: absolute; left:750px">
+    <input type="text" id="tags" name="tags" style="position: absolute; left:1000px;"> -->
+
+    
+    <br> <br> <br>
+  </div>
+
+
+<br><br>
+<h2 style="text-align: center; margin-top:-100px">Define a Package for Your Gig</h2>
+
+<br><br>
+
+<div class="background">
+    <div class="packages-pfs-container">
+      <table class="packages-initial-pricing-blocks">
+        <thead>
+          <tr>
+            <th class="first-table-col"></th>
+            <th>Basic</th>
+            <th>Standard</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="first-table-col">
+              <section class="pkg-title-education table-tooltip-on-hover">
+                <div class="education-tooltip box-shadow-z4">
+                  <header>
+                    <div class="icn-lightbulb-wrapper">
+                      <i class="fa fa-lightbulb-o"></i>
+                    </div>
+                    <h6 style="margin-top:17px;">Title</h6>
+                  </header>
+                
+                    <p style="position:absolute; margin-top:-38px;font-size: 14px;">Give your package a catchy title, which describes what <br>it includes.</p>
+                    <p style="font-size: 14px;"><i>For example: </i>2D or 3D cover, Print-Ready Version</p>
+                
+                </div>
+              </section>
+            </td>
+            <td>
+              <div class="pkg-title-container">
+                <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"
+                  aria-label="name your package" data-uw-rm-form="fx" name="basicPackage[name]" ></textarea>
+                
+              </div>
+            </td>
+            <td>
+              <div class="pkg-title-container">
+                <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"
+                  aria-label="name your package" data-uw-rm-form="fx" name="standardPackage[name]"></textarea>
+               
+              </div>
+            </td>
+            <td>
+              <div class="pkg-title-container">
+                <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"
+                  aria-label="name your package" data-uw-rm-form="fx" name="premiumPackage[name]"></textarea>
+               
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="first-table-col">
+              <section class="pkg-description-education table-tooltip-on-hover">
+                <div class="education-tooltip box-shadow-z4">
+                  <header>
+                    <div class="icn-lightbulb-wrapper"><i class="fa fa-lightbulb-o"></i></div>
+                    <h6 style="margin-top:10px;">Description</h6>
+                  </header>
+                  
+                    <p style="font-size: 14px;position:absolute;margin-top:-40px;">Summarize what this package offers buyers, and why<br> you included these items in your package.<br>You can use maximum 100 chars.
+                    <p>
+                    
+                  
+                  <p style="font-size: 14px;margin-top:60px;"><i>For example:</i> This "Full Logo Design" package includes a standard logo design with 4
+                    revisions and the source file.</p>
+                </div>
+              </section>
+            </td>
+            <td>
+              <div class="pkg-description-container">
+                <textarea class="pkg-description-input" maxlength="100"
+                  placeholder="Describe the details of your offering" aria-label="describe the details of your offering"
+                  data-uw-rm-form="fx" name="basicPackage[description]"></textarea>
+                
+              </div>
+            </td>
+            <td>
+              <div class="pkg-description-container">
+                <textarea class="pkg-description-input" maxlength="100"
+                  placeholder="Describe the details of your offering" aria-label="describe the details of your offering"
+                  data-uw-rm-form="fx" name="standardPackage[description]"></textarea>
+               
+              </div>
+            </td>
+            <td>
+              <div class="pkg-description-container">
+                <textarea class="pkg-description-input" maxlength="100"
+                  placeholder="Describe the details of your offering" aria-label="describe the details of your offering"
+                  data-uw-rm-form="fx" name="premiumPackage[description]"></textarea>
+               
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="first-table-col">
+              <section class="pkg-duration-education table-tooltip-on-hover">
+                <div class="education-tooltip box-shadow-z4">
+                  <header>
+                    <div class="icn-lightbulb-wrapper">
+                      <i class="fa fa-lightbulb-o"></i>
+                    </div>
+                    <h6 style="margin-top:15px;">Delivery Time</h6>
+                  </header>
+                  
+                    <p style="font-size: 14px; position:relative; margin-top:-30px; ">Set a delivery time that makes sense for you, based on the combined time it takes you to create
+                      every part <br>of the package.<p>
+                  
+                </div>
+              </section>
+            </td>
+            <td>
+              <div class="pkg-duration-container">
+                <div >
+                  <span >
+                    <div style="font-size:16px;">Delivery Time</div>
+                 <select name="basicPackage[delivery_date]">
+                  <option value="2">
+                    2 days
+                  </option>
+                  <option value="3">
+                    3 days
+                  </option>
+                  <option value="4">
+                    4 days
+                  </option>
+                   <option value="10">
+                    10 days
+                  </option>
+                  <option value="30">
+                    30 days
+                  </option>
+
+                 </select>
+                  </span>
+                </div>
+              </div>
+            </td>
+
+
+
+
+
+
+            <td>
+              <div class="pkg-duration-container">
+                <div >
+                  <span class="_5-fo9i5 RpRQZFl select-penta-design-content table-select-content">
+                    <div style="font-size:16px;">Delivery Time</div>
+                    <select name="standardPackage[delivery_date]">
+                      <option value="2">
+                        2 days
+                      </option>
+                      <option value="3">
+                        3 days
+                      </option>
+                      <option value="4">
+                        4 days
+                      </option>
+                       <option value="10">
+                        10 days
+                      </option>
+                      <option value="30">
+                        30 days
+                      </option>
+    
+                     </select>
+                  </span>
+                </div>
+              </div>
+            </td>
+            
+          
+            
+            <td>
+              <div class="pkg-duration-container">
+                <div class="W46fKfn cK9KPQl XlivBII select-penta-design pkg-duration-input table-select">
+                  <span class="_5-fo9i5 RpRQZFl select-penta-design-content table-select-content">
+                    <div style="font-size:16px;">Delivery Time</div>
+                    <select name="premiumPackage[delivery_date]">
+                      <option value="2">
+                        2 days
+                      </option>
+                      <option value="3">
+                        3 days
+                      </option>
+                      <option value="4">
+                        4 days
+                      </option>
+                       <option value="10">
+                        10 days
+                      </option>
+                      <option value="30">
+                        30 days
+                      </option>
+    
+                     </select>
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <td class="first-table-col"><section class="pkg-pricing-factor-education table-tooltip-on-hover">
+                <div class="education-tooltip box-shadow-z4">
+                  <header>
+                    <div class="icn-lightbulb-wrapper"><i class="fa fa-lightbulb-o"></i></div>
+                    <h6 style="margin-top:10px;">Revisions</h6>
+                  </header>
+                  <p style="font-size:14px; margin-top:-30px">The number of tweaks you offer in this package.</p>
+                </div>
+              </section>
+            </td>
+            <td>
+              <div class="flex">
+                <div class="W46fKfn cK9KPQl XlivBII select-penta-design table-select"><span
+                    class="_5-fo9i5 RpRQZFl select-penta-design-content table-select-content">
+                    <div style="font-size:16px;">Select</div>
+                    <select name="basicPackage[revisions]">
+                      <option value="0">
+                        0
+                      </option>
+                      <option value="1">
+                        1
+                      </option>
+                      <option value="2">
+                        2
+                      </option>
+                       <option value="3">
+                        3
+                      </option>
+                      <option value="unlimited">
+                        Unlimited
+                      </option>
+    
+                     </select>
+                    <input type="hidden" value="">
+                  </span></div>
+              </div>
+            </td>
+            <td>
+              <div class="flex">
+                <div class="W46fKfn cK9KPQl XlivBII select-penta-design table-select"><span
+                    class="_5-fo9i5 RpRQZFl select-penta-design-content table-select-content">
+                    <div style="font-size:16px;">Select</div>
+                    <select name="standardPackage[revisions]">
+                      <option value="0">
+                        0
+                      </option>
+                      <option value="1">
+                        1
+                      </option>
+                      <option value="2">
+                        2
+                      </option>
+                       <option value="3">
+                        3
+                      </option>
+                      <option value="unlimited">
+                        Unlimited
+                      </option>
+    
+                     </select>
+                    <input type="hidden" value="">
+                  </span></div>
+              </div>
+            </td>
+            <td>
+              <div class="flex">
+                <div class="W46fKfn cK9KPQl XlivBII select-penta-design table-select"><span
+                    class="_5-fo9i5 RpRQZFl select-penta-design-content table-select-content">
+                    <div style="font-size:16px;">Select</div>
+                    <select name="premiumPackage[revisions]">
+                      <option value="0">
+                        0
+                      </option>
+                      <option value="1">
+                        1
+                      </option>
+                      <option value="2">
+                        2
+                      </option>
+                       <option value="3">
+                        3
+                      </option>
+                      <option value="unlimited">
+                        Unlimited
+                      </option>
+    
+                     </select>
+                    <input type="hidden" value="">
+                  </span></div>
+              </div>
+            </td>
+          </tr>
+      
+
+     
+          <tr>
+            <td class="first-table-col"><section class="pkg-price-education table-tooltip-on-hover">
+                <div class="education-tooltip box-shadow-z4">
+                  <header>
+                    <div class="icn-lightbulb-wrapper"><i class="fa fa-lightbulb-o"></i></div>
+                    <h6 style="margin-top:10px; ">Price</h6>
+                  </header>
+                  
+                    <p style="font-size:14px; position:relative;margin-top:-40px;">Earn up to 64% more with 3 price packages.<br>
+                    Set package prices so that the prices are between $30 and $10,000.
+                    <br>Price your packages from lowest (Basic) to highest (Premium).
+                    Update your prices at any time.<p>
+          
+                  
+                </div>
+              </section>
+            </td>
+            <td class="pkg-price-cell">
+              <div class="pkg-price-container"><span class="dgz40aA e9idsAo">
+                  <div class="Td64xgT" data-testid="input-group">
+                    <div style="font-size:16px;">$</div>
+                    <input 
+                      type="number" step="5" min="30" max="10000" value="" aria-labelledby="uw188f68d"
+                      data-uw-rm-form="fx" name="basicPackage[price]">
+                  </div>
+                </span></div>
+            </td>
+            <td class="pkg-price-cell">
+              <div class="pkg-price-container"><span class="dgz40aA e9idsAo">
+                  <div class="Td64xgT" data-testid="input-group">
+                    <divstyle="font-size:16px;">$</div><input class="GN1JpQG price-input dgz40aA fQX1f6X"
+                      type="number" step="5" min="30" max="10000" value="" aria-labelledby="uw5289fc0"
+                      data-uw-rm-form="fx" name="standardPackage[price]">
+                  </div>
+                </span></div>
+            </td>
+            <td class="pkg-price-cell">
+              <div class="pkg-price-container"><span class="dgz40aA e9idsAo">
+                  <div class="Td64xgT" data-testid="input-group">
+                    <div style="font-size:16px;">$</div><input class="GN1JpQG price-input dgz40aA fQX1f6X"
+                      type="number" step="5" min="30" max="10000" value="" aria-labelledby="uw228b38b"
+                      data-uw-rm-form="fx" name="premiumPackage[price]">
+                  </div>
+                </span></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <input class="GiBu" style="margin-left:500px" type="submit" value="Create Gig" style="margin: auto;">
+
+
+
+   </form>
+
+
+
+
+
+
+    <script>
+
+
+      function populateSubCategories() {
+        var category = document.getElementById("category").value;
+        var subcategoryDropdown = document.getElementById("subcategory");
+
+        // Clear previous options
+        subcategoryDropdown.innerHTML = "<option>Select Sub Category</option>";
+
+        // Set relevant options based on the selected category
+        if (category === "Graphics and Design") {
+          var graphics = ["Logo Design", "Website Design", "Business Cards", "Poster Design", "Social Media Design"];
+          populateDropdown(graphics);
+        } else if (category === "Digital Marketing") {
+          var marketing = ["Social Media Marketing", "Video Marketing", "Email Marketing", "Web Analytics", "Marketing Advice"];
+          populateDropdown(marketing);
+        } else if (category === "Writing and Translation") {
+          var writing = ["Articles and Blog Posts", "Translation", "Website Content", "Technical Writing", "Product Description"];
+          populateDropdown(writing);
+        }
+        else if (category === "Programming and Tech") {
+          var tech = ["Website Development", "Game Development", "AI Development", "Mobile App Development", "NFT Development"];
+          populateDropdown(tech);
+        }
+        else if (category === "Video and Animation") {
+          var video = ["Video Editing", "Animated GIFS", "Logo Animation", "3D product Animation", "Article to Video"];
+          populateDropdown(video);
+        }
+        else if (category === "Data") {
+          var data = ["Data Mining and Scrapping", "Databases", "Data Processing", "Data Analytics", "Data Governance and Protection"];
+          populateDropdown(data);
+        }
+      }
+
+      function populateDropdown(options) {
+        var subcategoryDropdown = document.getElementById("subcategory");
+
+        options.forEach(function (option) {
+          var opt = document.createElement("option");
+          opt.textContent = option;
+          opt.value = option;
+          subcategoryDropdown.appendChild(opt);
+        });
+      }
+
+      // Initially populate the subcategory dropdown based on the default category
+      populateSubCategories();
+
+
+
+      document.getElementById("add-skill").addEventListener("click", function() {
+    const skillsContainer = document.getElementById("skills-container");
+    const newSkillInput = document.createElement("div");
+    newSkillInput.classList.add("skill-input");
+    newSkillInput.innerHTML = `<input type="text" name="skills" class="skill">`;
+    skillsContainer.appendChild(newSkillInput);
+});
+
+document.getElementById("add-certificate").addEventListener("click", function() {
+    const skillsContainer = document.getElementById("certificate-container");
+    const newSkillInput = document.createElement("div");
+    newSkillInput.classList.add("skill-input");
+    newSkillInput.innerHTML = `<input type="text" name="certificates" class="skill">`;
+    skillsContainer.appendChild(newSkillInput);
+});
+
+    </script>
+
+</body>
+
+</html>

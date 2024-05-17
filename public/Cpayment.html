@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Dashboard</title>
+  <style>
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+    h1 {
+      color: #0c356a;
+   
+    }
+
+    #payment-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 70px;
+    
+    }
+
+    .paymentCard {
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+      overflow: hidden;
+      height: fit-content;
+      width: 200px;
+    }
+
+    .paymentCard:hover {
+      transform: scale(1.05);
+    }
+
+    .paymentCardContent {
+      padding: 20px;
+    }
+
+    .paymentCard p {
+      margin: 0;
+      font-size: 16px;
+      color: #495057;
+      margin-bottom: 10px;
+    }
+
+    .paymentCard button {
+      background-color: #0c356a;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      width: 100%;
+    }
+
+    .paymentCard button:hover {
+      background-color: #0c356a7a;
+    }
+
+
+    #payment-summary {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width:60vw;
+    margin: auto;
+  }
+
+
+  </style>
+</head>
+<body>
+
+  <h1>Client Payment Summary</h1>
+  <div id="payment-summary" class="summaryContainer"></div>
+
+  <h1>Due Payments</h1>
+  <div id="payment-list" class="paymentContainer"></div>
+
+
+  <script src="cpayment.js"></script>
+
+</body>
+</html>
+
+
+ 

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Gigs Display</title>
+  <link rel="stylesheet" href="gigstyle.css" />
+</head>
+
+<body>
+  <div class="header">
+    <ul class="header2">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="About.html">About</a></li>
+      <li id="fdashboard"><a href="freelancerDashboard.html">Switch to Freelancer Mode</a></li>
+      <li id="mkGg"><a href="makeGig.html">Become a Freelancer Now</a></li>
+      <li id="cdashboard"><a href="clientDashboard.html">Client Dashboard</a></li>
+      <button class="b1"><a href="signup.html">Sign up</a></button>
+      <h4 class="b2"><a href="login.html">Sign in</a></h4>
+    </ul>
+  </div>
+  <h2 style="margin-top: 50px; margin-left: 40px">Find & Hire Freelancers</h2>
+  <p class="line">
+    Discover a vast network of Freelancers providing a multitude of
+    freelancing services online.
+  </p>
+  <hr />
+  <div id="gigsList" class="gigsList"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchGigs();
+    });
+
+    function fetchGigs() {
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const category=urlParams.get("category");
+
+
+      if(category==null){
+
+      fetch("/gigs")
+        .then((response) => response.json())
+        .then((data) => displayGigs(data))
+        .catch((error) => console.error("Error fetching gigs:", error));
+    }
+    
+ 
+
+
+   
+
+  else{
+
+     console.log(category);
+     fetch(`/gigs?category=${category}`)
+        .then((response) => response.json())
+        .then((data) => displayGigs(data))
+        .catch((error) => console.error("Error fetching gigs:", error));
+
+  }
+   
+}
+function displayGigs(gigs_) {
+
+      const f = document.getElementById("fdashboard");
+      const mkGg = document.getElementById("mkGg");
+
+      if (gigs_.f === 1) {
+        f.style.display = 'block';     //handling the routes
+        mkGg.style.display = 'none'
+      } else {
+        f.style.display = 'none';
+        mkGg.style.display = 'block'
+
+      }
+
+
+      const c = document.getElementById("cdashboard");
+console.log(gigs_.c);
+
+      if (gigs_.c === 1) {
+        c.style.display = 'block'; // Wrap 'block' in quotes to make it a string
+      } else {
+        c.style.display = 'none';
+      }
+
+
+
+      const gigs = gigs_.r;
+
+      console.log(gigs);
+      const gigsList = document.getElementById("gigsList");
+
+      gigs.forEach((gig) => {
+        const listItem = document.createElement("div");
+        listItem.classList.add("gigDiv");
+        listItem.innerHTML = `
+      <p><b>Name:</b> ${gig[1]}</p>
+      <p><b>Basic Price:</b> ${gig[5].PRICE}</p>
+      <p><b>Category:</b> ${gig[3]}</p>
+      <p><b>Avg Rating:</b> ${gig[9]}</p>
+
+    `;
+        listItem.addEventListener("click", () => showDetailsPage(gig)); // Add click event
+        gigsList.appendChild(listItem);
+      });
+    }
+
+    function showDetailsPage(gig) {
+      // Redirect to a new page with the gig ID in the query parameter
+      window.location.href = `gigDetails.html?gigId=${gig[0]}`; // Assuming gig ID is at index 3
+    }
+  </script>
+</body>
+
+</html>
