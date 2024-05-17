@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Dashboard</title>
+    <link rel="stylesheet" href="/stylee.css"> <!-- Assuming you have a styles.css file in the public folder -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+
+        }
+
+        strong {
+            color: #0c356a;
+        }
+
+
+
+        .header2 {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 350px;
+            overflow: hidden;
+            background-color: #0c356a;
+        }
+
+        .header {
+            margin: -15px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+
+            padding: 25px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+            background-color: rgb(103, 158, 206);
+        }
+
+        .b1 {
+            background-color: white;
+            padding: 8px;
+            border-radius: 10px;
+            margin-top: 15px;
+            margin-left: 300px;
+            border: 3px solid lightblue;
+        }
+
+        .b1 a {
+            text-decoration: none;
+            color: #0c356a;
+
+            font-weight: bold;
+        }
+
+        .b1:hover {
+            background-color: #cee2fc;
+        }
+
+        .b2 {
+            margin-left: 700px;
+            margin-top: -25px;
+
+            font-size: 14px;
+        }
+
+        .b2 a {
+            color: white;
+        }
+
+        .part2 #i1 {
+            margin-left: 600px;
+            width: auto;
+            height: 450px;
+        }
+
+        .part2 #main {
+            margin-top: -350px;
+            margin-left: 150px;
+            color: #0c356a;
+            font-size: 50px;
+        }
+
+        .part2 p {
+            margin-left: 150px;
+            margin-top: 0px;
+            font-size: 18px;
+        }
+
+        #heading {
+            margin-top: 70px;
+            margin-left: 100px;
+            margin-bottom: 50px;
+        }
+
+        .hhe {
+            color: #0c356a;
+        }
+
+        .h1 {
+            display: block;
+
+        }
+
+        .project-section {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 20px;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+        }
+
+        .project {
+
+            display: flex;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .projectBox {
+            width: 70vw;
+            /* Adjust width as needed */
+            margin: 30px auto;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+        }
+
+        .projectBox p {
+            margin: 10px 30px;
+            padding-bottom: 10px;
+        }
+
+        button {
+            background-color: #0c356a;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #093156;
+        }
+
+
+        .chatListContainer {
+            max-width: 400px;
+            /* Adjust the max-width as needed */
+            margin: 20px auto;
+            margin-top: 10px;
+            padding: 15px;
+            border: 1px solid #0c356a;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        /* Header styling for the chat list box */
+        .chatListHeader {
+            font-size: 22px;
+            color: #0c356a;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .clientList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .clientName {
+
+            border: 1px solid #0c356a;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            width: 200px;
+            /* Adjust the width as needed */
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background-color: #0c356a;
+            color: white;
+        }
+
+        .clientName:hover {
+            background-color: #fff;
+            color: #0c356a;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        /* Style for the overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+
+        .remaining-time {
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -15px;
+    }
+
+    .digital-clock {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:-40px;
+    }
+
+    .digital-clock span {
+        font-family: 'Courier New', monospace;
+        display: inline-block;
+        margin:0px 5px;
+        padding: 5px;
+        background-color: #0c356a;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .time_h{
+
+        font-weight: normal;
+        font-size: 16px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <ul class="header2">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li> <a href="#" onclick="event.preventDefault(); navigateToFpayment();">View Payments</a></li>
+            <!-- <li><a style="color: aquamarine;" href="gigDisplay.html">Switch to Buying</a></li> -->
+            <button class="b1"><a href="signup.html">Sign up</a></button>
+            <h4 class="b2"><a href="login.html">Sign in</a></h4>
+        </ul>
+    </div>
+
+    <div id="heading">
+
+    </div>
+
+
+    <div class="chatListContainer">
+        <h1 class="chatListHeader">Chat List</h1>
+        <div id="chatList" class="chatList"></div>
+    </div>
+    <h1 id="Ch1"></h1>
+    <div id="chatList"></div>
+
+
+    <div class="project-section">
+
+        <h1>Requested Projects</h1>
+        <div id="requestedProjects" class="project">
+
+
+        </div>
+
+
+        <h1>Active Projects</h1><br>
+        <div id="ActiveProjects" class="project">
+
+        </div>
+
+
+
+
+
+        <h1>Completed Projects</h1>
+        <div id="CompletedProjects" class="project">
+
+        </div>
+
+
+
+        <h1>Cancelled Projects</h1>
+        <div id="CancelledProjects" class="project">
+
+        </div>
+
+    </div>
+
+
+    <div id="cancelModal" class="modal">
+        <h2>Select Reason for Cancellation</h2>
+        <form id="reasonForm">
+            <input type="radio" name="reason" value="by freelancer due to Issues"> Technical Issues<br>
+            <input type="radio" name="reason" value="by freelancer due to IssuesScope Change"> Scope Change<br>
+            <input type="radio" name="reason" value="by freelancer due to IssuesOther"> Other<br><br>
+            <button type="button" onclick="submitCancellation()">Submit</button>
+        </form>
+    </div>
+
+    <!-- Overlay to cover the page when the modal is active -->
+    <div id="overlay" class="overlay"></div>
+
+    <script>
+        let fid;
+         function navigateToFpayment() {
+                window.location.href = `Fpayment.html?fid=${fid}`;
+            }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gigId = urlParams.get('gigId');
+            const userName = urlParams.get('userName');
+            fid = urlParams.get('fid');
+            let h = document.getElementById("heading");
+            h.innerHTML += ` <h1 style="text-align:center; margin:0; padding:0;" class="hhe">Welcome ${userName} To Freelancer Dashboard</h1>`;
+
+
+
+           
+            console.log(h);
+
+
+            try {
+                const response = await fetch(`/getChatList?freelancerId=${fid}`);
+                const data = await response.json();
+
+                console.log(data);
+
+                const chatListContainer = document.getElementById("chatList");
+                chatListContainer.classList.add("clientList");
+                data.forEach(client => {
+                    const clientNameDiv = document.createElement("div");
+                    clientNameDiv.className = "clientName";
+                    clientNameDiv.textContent = client;
+                    chatListContainer.appendChild(clientNameDiv);
+
+                    clientNameDiv.addEventListener("click", async () => {
+                        const clientId = await getClientId(client, gigId);
+                        const sender = await getfreelancer(fid);
+                        console.log("client Id is" + clientId);
+                        redirectToChat(gigId, fid, clientId, sender);
+                    });
+
+                    chatListContainer.appendChild(clientNameDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching chat list:', error);
+            }
+
+
+
+
+
+
+
+            // ... (existing code)b
+
+            try {
+                // Fetch requested projects
+                const projectsResponse = await fetch(`/getRequestedProjects?freelancerId=${fid}`);
+                const projects = await projectsResponse.json();
+                console.log(projects.projects);
+                const p = projects.projects;
+                
+                
+                // Display requested projects
+                const projectsContainer = document.getElementById("requestedProjects");
+                p.forEach(project => {
+                    const Active = "Active";
+                    const cancelled = "Request cancelled";
+                    const projectDiv = document.createElement("div");
+                    projectDiv.innerHTML = `
+                <div class="projectBox">
+                    <p><strong>Client Name:</strong><br><br> ${project.clientName}</p>
+                    <p><strong>Project Name:</strong><br><br> ${project.projectname}</p>
+                    <p><strong>Budget:</strong><br><br> ${project.budget}</p>
+                    <p><strong>Duration:</strong><br><br> ${project.duration}</p>
+                    <p><strong>Details:</strong><br><br> ${project.details}</p>
+                  <br>
+                  <button onclick="handleButtonClick(${project.projectid},'${Active}')">Confirm</button><br><br>     <button onclick="handleButtonClick(${project.projectid},'${cancelled}')">Cancel</button>
+                    </div>
+                `;
+                    projectsContainer.appendChild(projectDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching requested projects:', error);
+            }
+
+
+            try {
+                // Fetch requested projects
+                const projectsResponse = await fetch(`/getActiveProjects?freelancerId=${fid}`);
+                const projects = await projectsResponse.json();
+                console.log(projects.projects);
+                const p=projects.projects;
+
+                const complete = "Completed";
+                const cancelled = "Cancelled";
+
+                console.log("_");
+
+          
+
+                // Display requested projects
+                const projectsContainer = document.getElementById("ActiveProjects");
+
+                p.forEach(project => {
+                    const projectDiv = document.createElement("div");
+
+                    console.log(project.timestamp);
+                    // Calculate end time by adding duration to the timestamp
+                    const startTime = new Date(project.timestamp);
+                    const durationInDays = project.duration;
+                    const endTime = new Date(startTime.getTime() + durationInDays * 24 * 60 * 60 * 1000);
+
+                    console.log("time: " + endTime);
+
+                    // Calculate remaining time
+                    const currentTime = new Date();
+                    const timeDiff = endTime - currentTime;
+
+                    console.log(timeDiff);
+
+                    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+                    projectDiv.innerHTML = `
+            <div class="projectBox">
+                <p><strong>Client Name:</strong><br><br> ${project.clientName}</p>
+                <p><strong>Project Name:</strong><br><br> ${project.projectname}</p>
+                <p><strong>Budget:</strong><br><br> ${project.budget}</p>
+                <p><strong>Duration:</strong><br><br> ${project.duration} days</p>
+                <p><strong>Details:</strong><br><br> ${project.details}</p>
+                <div class="remaining-time">
+                <p class="time_h"><strong>Remaining Time:</strong><p>
+                <div id="time${project.projectid}" class="digital-clock"></div>
+                </div>
+                <br>
+                <button onclick="cancelReason(${project.projectid},'${cancelled}')">Cancel Project</button>
+            </div>
+            `;
+                    projectsContainer.appendChild(projectDiv);
+
+
+                    function updateDigitalClock(projectId, days, hours, minutes) {
+                        const timeElement = document.getElementById(`time${projectId}`);
+                        timeElement.innerHTML = `
+                        <span>${days}d</span>
+                        <span>${hours}h</span>
+                        <span>${minutes}m</span>
+                        `;
+                    }
+
+
+                    // Update the remaining time every second
+                    setInterval(() => {
+                        const updatedTimeDiff = endTime - new Date();
+                        const updatedDays = Math.floor(updatedTimeDiff / (1000 * 60 * 60 * 24));
+                        const updatedHours = Math.floor((updatedTimeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const updatedMinutes = Math.floor((updatedTimeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                        console.log("___");
+
+                        updateDigitalClock(project.projectid, updatedDays, updatedHours, updatedMinutes);
+                    }, 1000); // Update every second
+                });
+            } catch (error) {
+                console.error('Error fetching requested projects:', error);
+            }
+
+
+
+            try {
+                // Fetch requested projects
+                const projectsResponse = await fetch(`/getCompletedProjects?freelancerId=${fid}`);
+                const projects = await projectsResponse.json();
+                console.log(projects.projects);
+
+             const p=projects.projects;
+
+                // Display requested projects
+                const projectsContainer = document.getElementById("CompletedProjects");
+                p.forEach(project => {
+
+                    const projectDiv = document.createElement("div");
+                    projectDiv.innerHTML = `
+                <div class="projectBox">
+                    <p><strong>Client Name:</strong><br><br> ${project.clientName}</p>
+                    <p><strong>Project Name:</strong><br><br> ${project.projectname}</p>
+                    <p><strong>Budget:</strong><br><br> ${project.budget}</p>
+                    <p><strong>Duration:</strong><br><br> ${project.duration}</p>
+                    <p><strong>Details:</strong><br><br> ${project.details}</p>
+                  <br>
+                 
+                  
+                    </div>
+                `;
+                    projectsContainer.appendChild(projectDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching requested projects:', error);
+            }
+
+
+
+            try {
+                // Fetch requested projects
+                const projectsResponse = await fetch(`/getCancelledProjects?freelancerId=${fid}`);
+                const projects = await projectsResponse.json();
+                console.log(projects.projects);
+                const p=projects.projects;
+              
+
+                // Display requested projects
+                const projectsContainer = document.getElementById("CancelledProjects");
+                p.forEach(project => {
+
+                    const projectDiv = document.createElement("div");
+                    projectDiv.innerHTML = `
+                <div class="projectBox">
+                    <p><strong>Client Name:</strong><br><br> ${project.clientName}</p>
+                    <p><strong>Project Name:</strong><br><br> ${project.projectname}</p>
+                    <p><strong>Budget:</strong><br><br> ${project.budget}</p>
+                    <p><strong>Duration:</strong><br><br> ${project.duration}</p>
+                    <p><strong>Details:</strong><br><br> ${project.details}</p>
+                  <br>
+                 
+                  
+                    </div>
+                `;
+                    projectsContainer.appendChild(projectDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching requested projects:', error);
+            }
+
+
+
+
+
+
+
+
+
+        });
+
+        // ... (existing code)
+
+
+
+
+
+
+
+
+
+
+
+
+        async function getfreelancer(fid) {
+            try {
+                const response = await fetch(`/getusername?id=${fid}`);
+
+                const data = await response.json();
+                // alert(data.sender);
+                return data.sender; // Assuming data contains clientId
+            } catch (error) {
+                console.error('Error fetching freelancername:', error);
+            }
+        }
+
+
+        async function getClientId(clientName) {
+            try {
+                const response = await fetch(`/getClientId?clientName=${clientName}`);
+                const data = await response.json();
+                return data.clientId; // Assuming data contains clientId
+            } catch (error) {
+                console.error('Error fetching clientId:', error);
+            }
+        }
+
+
+        // Function to redirect to chat page with parameters
+        function redirectToChat(gigId, fid, clientId, sender) {
+            window.location.href = `/chat?gigId=${gigId}&userId=${clientId}&fid=${fid}&sender=${sender}`;
+        }
+
+
+
+
+    </script>
+    <script src="reqProject.js"></script>
+</body>
+
+</html>

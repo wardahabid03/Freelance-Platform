@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancer Payments</title>
+  <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+    h1 {
+      color: #0c356a;
+   
+    }
+
+    #paymentsList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    
+    }
+
+    .paymentCard {
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+      overflow: hidden;
+      height: fit-content;
+    }
+
+    .paymentCard:hover {
+      transform: scale(1.05);
+    }
+
+    .paymentCardContent {
+      padding: 20px;
+    }
+
+    .paymentCard p {
+      margin: 0;
+      font-size: 16px;
+      color: #495057;
+      margin-bottom: 10px;
+    }
+
+    .paymentCard button {
+      background-color: #0c356a;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      width: 100%;
+    }
+
+    .paymentCard button:hover {
+      background-color: #0c356a7a;
+    }
+
+
+    #financialDetails {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width:60vw;
+    margin: auto;
+  }
+
+    
+  </style>
+</head>
+<body>
+
+  <h1>Freelancer Payments</h1>
+  
+  <div id="financialDetails">
+    <!-- Financial details will be displayed here -->
+  </div>
+  
+  <br><hr><br>
+  <h2 style="color: #0c356a;margin-top:-30px;"><br>Payments for Confirmation</h2><br>
+  <div id="paymentsList">
+    <!-- Payments will be displayed here -->
+  </div>
+  
+<br><hr><br>
+
+  <div id="paymentDisplay"></div>
+  
+  <script>
+
+
+const urlParams = new URLSearchParams(window.location.search);
+
+// Get a specific parameter
+const fid = urlParams.get('fid');
+console.log("???????????"+fid);
+
+
+    // Function to fetch and display payments and financial details
+    async function fetchPaymentsAndFinancialDetails() {
+      console.log("<<<<<<"+fid);
+      const response = await fetch(`/fpaymentDisplay/${fid}`);
+      const data = await response.json();
+      const Dpayments = data.paymentDisplay[0];
+
+      console.log(data);
+      
+
+      console.log(":"+Dpayments);
+  
+      // Display financial details
+      const financialDetailsDiv = document.getElementById('financialDetails');
+      financialDetailsDiv.innerHTML = `
+        <h2 style="color: #0c356a;">Financial Details</h2>
+        <p>Total Income: ${Dpayments[1]}</p>
+        <p>Current Month Income: ${Dpayments[2]}</p>
+        <p>Future Income: ${Dpayments[3]}</p>
+      `;
+
+
+    
+
+    }
+
+
+
+    async function fetchPayments() {
+    const response = await fetch(`/fpayment`);
+    const payments = await response.json();
+console.log(payments);
+      // Display payments in the HTML
+      const paymentsList = document.getElementById('paymentsList');
+      // paymentsList.innerHTML = '';
+  
+      if (payments.length === 0) {
+        paymentsList.innerHTML += '<br><p style="text-align: center; display:block;">No payments for confirmation.</p>';
+      } else {
+        for (const payment of payments) {
+          paymentsList.innerHTML += `
+            <div class="paymentCard">
+              <div class="paymentCardContent">
+                <p>Client: ${payment[3]}</p>
+                <p>Amount: ${payment[1]}</p>
+                <p>Status: ${payment[2]}</p>
+              </div>
+              <button onclick="markPaymentReceived(${payment[0]})">Mark as Received</button>
+            </div>
+          `;
+        }
+      }
+    }
+  
+    // Function to mark a payment as received
+    async function markPaymentReceived(paymentId) {
+      const response = await fetch(`/fpayment/${paymentId}/received`, { method: 'POST' });
+      const result = await response.json();
+    
+      fetchPaymentsAndFinancialDetails(); // Refresh the payments list and financial details after marking a payment as received
+      location.reload();
+    }
+  
+    // Fetch and display payments and financial details when the page loads
+    window.onload = () => {
+       // Replace [freelancer_id] with the actual freelancer ID
+      fetchPaymentsAndFinancialDetails();
+      fetchPayments();
+    };
+  </script>
+  
+  </body>
+</html>

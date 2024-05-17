@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gig Details</title>
+    <style>
+      /* Intensely styled CSS for the gig details page */
+
+      body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Adjusted to minimum height for better visibility */
+  background: white;
+}
+
+.gig_C{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+.details-container {
+ 
+  /* flex-direction: column; */
+  justify-content: space-between;
+  margin-top: 20px;
+  background-color: #91befa2f;
+  box-shadow: 0 10px 20px #0c356a;
+  border-radius: 20px;
+  padding: 20px 70px;
+  width: 60vw;
+  text-align: left;
+  color: #0c356a;
+  transform: scale(0.9);
+  transition: transform 0.3s ease-in-out;
+  min-height: 1200px;
+  max-height: fit-content;
+}
+
+.description-container {
+  width: 5%; /* Full width for better visibility */
+  margin-bottom: 20px; /* Add some space at the bottom */
+}
+
+.package-container {
+  width: 35%;
+  margin-top:-10px;
+}
+
+h1,
+h2 {
+  color: #0c356a;
+}
+
+h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 20px;
+  margin: 8px 0;
+}
+
+.package-card,
+.package-card2,
+.package-card3 {
+  margin-top:-40px;
+  margin-bottom: 15px;
+  padding: 15px;
+  height: 230px;
+  border: 2px solid #0c356a;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px #0c356a;
+  width: fit-content;
+}
+
+.cont1 {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+/* margin: 10px;
+padding: 20px; */
+gap: 80px;
+margin-top: 80px;
+}
+
+button{
+
+  margin-left: 100px;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <div class="details-container" id="details"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const gigId = urlParams.get("gigId");
+
+        if (gigId) {
+          fetchGigDetails(gigId);
+        }
+      });
+
+      function fetchGigDetails(gigId) {
+        fetch(`/gigDetails?gigId=${gigId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.certificates);
+            // Move this line inside the fetch callback
+            displayGigDetails(data);
+          })
+          .catch((error) =>
+            console.error("Error fetching gig details:", error)
+          );
+      }
+
+      function displayGigDetails(gigDetails) {
+        const detailsDiv = document.getElementById("details");
+        console.log(detailsDiv);
+
+        console.log(gigDetails.gig[0].GIG_NAME);
+        // Display details on the page
+        // For example, assuming 'gigDetails' is an array with gig details
+
+        detailsDiv.innerHTML = `<h1 style="text-align:center; color:black;">Profile</h1>
+ 
+  <h2 style="color:#0c356a;text-align:center" >${gigDetails.gig[0].GIG_NAME}</h2>
+    <br>
+    <hr style="border-color:#0c356a; border-width:2px">
+    <br>
+    <div class="gig_C">
+      <div class="gig_D">
+      <br>
+    <p style="font-size: 25px; font-weight:bold;"><br>
+  Description: 
+ <br><span style="color: #0c356a; font-weight:normal;">${gigDetails.gig[0].GIG_DESCRIPTION}</span>
+  <p style="font-size: 25px; font-weight:bold;"><br>
+    Category: 
+   <br><span style="color: #0c356a; font-weight:normal;">${gigDetails.gig[0].CATEGORY}</span>
+  <p style="font-size: 25px; font-weight:bold;"><br>
+    SubCategory: 
+  <br><span style="color: #0c356a; font-weight:normal;"> ${gigDetails.gig[0].SUBCATEGORY}</span><br>
+   
+  
+     <br> <p style="font-size: 25px; font-weight:bold;"><b>Skills:<b></p><br>`;
+        for (
+          let i = 0;
+          i < gigDetails.gig.length &&
+          gigDetails.gig[i].SKILLNAME !== undefined;
+          i++
+        ) {
+          detailsDiv.innerHTML += `
+     <p style=" font-size: 25px; color: black;">${gigDetails.gig[i].SKILLNAME}</p>
+  `;
+        }
+
+        detailsDiv.innerHTML += `
+      <p style="font-size: 25px; font-weight:bold;"><b>Certificates:<b></p><br>`;
+
+        for (
+          let i = 0;
+          i < gigDetails.certificates.length &&
+          gigDetails.certificates[i].CERTIFICATENAME !== undefined;
+          i++
+        ) {
+          detailsDiv.innerHTML += `
+    <p style="font-size: 25px; color: black;">${gigDetails.certificates[i].CERTIFICATENAME}</p></div>
+  `;
+        }
+
+        detailsDiv.innerHTML += `<div>
+   
+          <h3 style="font-size:30px;">Package</h3>
+    <div class="cont1">
+    
+  <div class="package-card">
+    <h3><u>Basic Package</u></h3>
+    <p><b>Name:</b> ${gigDetails.gig[0].BASIC_PACKAGE.NAME}</p>
+    <p><b>Detail:</b> ${gigDetails.gig[0].BASIC_PACKAGE.DESCRIPTION}</p>
+    <p><b>Price:</b> ${gigDetails.gig[0].BASIC_PACKAGE.PRICE}</p>
+    <p><b>Number of Revisions:</b> ${gigDetails.gig[0].BASIC_PACKAGE.REVISIONS}</p>
+    <p><b>Delivery time:</b> ${gigDetails.gig[0].BASIC_PACKAGE.DELIVERY_DATE} days</p>
+  </div>
+
+
+
+  <div class="package-card2">
+    <h3><u>Standard Package</u></h3>
+    <p><b>Name:</b> ${gigDetails.gig[0].STANDARD_PACKAGE.NAME}</p>
+    <p><b>Detail:</b> ${gigDetails.gig[0].STANDARD_PACKAGE.DESCRIPTION}</p>
+    <p><b>Price:</b> ${gigDetails.gig[0].STANDARD_PACKAGE.PRICE}</p>
+    <p><b>Number of Revisions:</b> ${gigDetails.gig[0].STANDARD_PACKAGE.REVISIONS}</p>
+    <p><b>Delivery time:</b> ${gigDetails.gig[0].STANDARD_PACKAGE.DELIVERY_DATE} days</p>
+  </div>
+
+
+
+  <div class="package-card3">
+    <h3><u>Premium Package</u></h3>
+    <p><b>Name:</b> ${gigDetails.gig[0].PREMIUM_PACKAGE.NAME}</p>
+    <p><b>Detail:</b> ${gigDetails.gig[0].PREMIUM_PACKAGE.DESCRIPTION}</p>
+    <p><b>Price:</b> ${gigDetails.gig[0].PREMIUM_PACKAGE.PRICE}</p>
+    <p><b>Number of Revisions:</b> ${gigDetails.gig[0].PREMIUM_PACKAGE.REVISIONS}</p>
+    <p><b>Delivery time:</b> ${gigDetails.gig[0].PREMIUM_PACKAGE.DELIVERY_DATE} days</p>
+  </div></div></div>
+
+
+  <button style="width:100px; height:50px; border-radius:15px; background-color:#0c356a; border:2px solid #0c356a; margin-left:470px; margin-top:30px;"><a href="#" onclick="redirectToChat(${gigDetails.gig[0].GIG_ID})"style="color:white; text-decoration:none; font-size:15px; font-weight:bold; ">Let's Chat</a></button>
+
+</table>`;
+
+        console.log("22222222222222");
+        console.log(detailsDiv);
+      }
+      async function redirectToChat(gigId) {
+        // Construct the URL with gigId as a parameter
+        try {
+          const response = await fetch(`/getChatUrl?gigId=${gigId}`);
+          const data = await response.json();
+
+          if (response.ok) {
+            const chatUrl = data.chatUrl;
+
+            // Redirect the user to the chat URL
+            window.location.href = chatUrl;
+          } else {
+            console.error("Error:", data.error);
+          }
+        } catch (error) {
+          console.error("Error fetching chat URL:", error);
+        }
+      }
+    </script>
+  </body>
+</html>

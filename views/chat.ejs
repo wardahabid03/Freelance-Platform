@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            /* padding: 0; */
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            color: #0c356a;
+        }
+
+        #reciever{
+padding: 3px 22px;
+background-color: #0c356a;
+color: #f5f5f5;
+max-width: 600px;
+text-align: center;
+margin: auto;
+margin-bottom: -21px;
+
+border-radius: 5px 5px 0px 0px;
+        }
+
+        #chat-messages {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px 20px;
+            background-color: #fff;
+            border: 2px solid #0c356a;
+            border-radius: 0px 0px 5px 5px;
+            overflow-y: scroll;
+            max-height: 300px;
+        }
+
+        .message-box {
+            /* background-color: #e3f2fd; */
+            width: fit-content;
+            padding: 8px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc; /* Added thin border around each message */
+        }
+
+        .message-box strong {
+            color: #0c356a;
+        }
+
+        #message-input {
+            width: 70%;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+
+        button {
+            padding: 11px 15px;
+            background-color: #0c356a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #093156;
+        }
+
+        #project-form-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        #project-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0c356a;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #message-input{
+    max-width: 600px;
+     margin: auto;
+       margin-left: 500px;
+       padding: 12px;
+     
+        }
+
+        .select {
+            color: #333;
+        }
+
+        .hidden{
+
+            display: none;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            #message-input {
+                width: 60%;
+            }
+
+            button {
+                width: 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Chat Page of <span id="sender" ></span></h1>
+    <p class="hidden">Client ID: <span id="userId" ></span></p>
+    <p  class="hidden">Freelancer ID: <span id="fid"></span></p>
+    <p class="hidden">Sender: <span id="sender" ></span></p>
+
+    <!-- Display existing chat messages -->
+    <div id="reciever"></div>
+    <div id="chat-messages"></div>
+  
+
+    <br>
+    <button style="margin-left:750px; margin-top: -10px;" onclick="showProjectForm()">Request a Project</button>
+
+    <!-- Project Form Overlay -->
+    <div id="project-form-overlay">
+        <div id="project-form">
+            <form id="project-form">
+                <label for="projectname">Project Name:</label>
+                <input type="text" id="projectname" required>
+
+                <label for="category">Category:</label>
+                <select class="select" name="category" id="category" required>
+                    <option value="" disabled selected hidden>Select a Category</option>
+                    <option value="Graphics and Design">Graphic and Design</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="Writing and Translation">Writing and Translation</option>
+                    <option value="Programming and Tech">Programming and Tech</option>
+                    <option value="Video and Animation">Video and Animation</option>
+                    <option value="Data">Data</option>
+                </select>
+
+                <label for="details">Details:</label>
+                <textarea id="details" required></textarea>
+
+                <label for="duration">Duration:</label>
+                <input type="number" id="duration" required>
+
+                <label for="budget">Budget:</label>
+                <input type="number" id="budget" required>
+
+                <button type="button" onclick="submitProject()">Submit</button>
+                <button type="button" onclick="reload()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <br><br>
+
+    <!-- Add your chat interface and logic here -->
+    <div id="message-input-container">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+
+    <script>
+
+const urlParams = new URLSearchParams(window.location.search);
+//   const gigId = urlParams.get('gigId');
+  const userId = urlParams.get('userId');
+  const fid = urlParams.get('fid');
+  const sender=urlParams.get('sender');
+
+
+  let username1;
+  let username2;
+async function getusername1(){
+                const response = await fetch(`/getusername?id=${fid}`);
+             
+                const data = await response.json();
+                console.log(data.sender);
+                username1=data.sender; // Assuming data contains clientId
+}
+
+async function getusername2(){
+
+                const response2 = await fetch(`/getusername?id=${userId}`);
+             
+             const data2 = await response2.json();
+             console.log(data2.sender);
+             username2=data2.sender;
+
+}
+
+
+async function reciever(){
+
+
+            await getusername1();
+            await getusername2();
+
+             console.log(username1)
+             console.log(username2);
+             console.log(sender);
+
+if(username1!=sender){
+    const r1=document.getElementById("reciever");
+    console.log(r1);
+
+    r1.innerHTML=`<p> Responder: ${username1}</p>`;
+
+}
+
+else{
+    const r2=document.getElementById("reciever");
+    console.log(r2);
+    r2.innerHTML=`<p> Reciever: ${username2}</p>`;
+
+}
+
+
+}    
+
+reciever();
+
+
+
+        function fetchDataFromServer( userId, fid) {
+            // Make an AJAX request to fetch data from the server
+            fetch(`/get-messages?userId=${userId}&fid=${fid}`)
+                .then(response => response.json())
+                .then(data => {
+                    const chatMessages = document.getElementById('chat-messages');
+                    chatMessages.innerHTML = ''; // Clear existing messages
+
+                    data.messages.forEach(message => {
+                        const newMessage = document.createElement('p');
+                        newMessage.className = 'message-box';
+                        newMessage.innerHTML = `<strong>${message.SENDER}:</strong> ${message.MESSAGE}`;
+                        chatMessages.appendChild(newMessage);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageText = messageInput.value;
+
+            if (messageText.trim() !== '') {
+                // Make an AJAX request to send the message to the server
+                fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sender:sender,
+                        message: messageText,
+                        userId: userId,
+                        fid: fid
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Message sent successfully:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error sending message:', error);
+                    });
+
+                // Update the UI with the sent message (before getting confirmation from the server)
+                const chatMessages = document.getElementById('chat-messages');
+                const newMessage = document.createElement('p');
+                newMessage.innerHTML = `<strong>You:</strong> ${messageText}`;
+                chatMessages.appendChild(newMessage);
+
+                // Clear the input field
+                messageInput.value = '';
+            }
+        }
+
+        
+
+        // document.getElementById('gigId').textContent = gigId;
+        document.getElementById('userId').textContent = userId;
+        document.getElementById('fid').textContent = fid;
+        document.getElementById('sender').textContent=sender;
+
+        // Periodically fetch data from the server every 10 seconds
+        setInterval(() => {
+            fetchDataFromServer(userId, fid);
+        }, 10000);
+
+        // Initial fetch when the page loads
+        fetchDataFromServer(userId, fid);
+
+
+
+
+
+
+
+
+
+
+        function showProjectForm() {
+            document.getElementById('project-form-overlay').style.display = 'flex';
+        }
+
+        function hideProjectForm() {
+            document.getElementById('project-form-overlay').style.display = 'none';
+        }
+
+        function submitProject() {
+         
+            const category = document.getElementById('category').value;
+            console.log(category);
+            const duration = document.getElementById('duration').value;
+            const details = document.getElementById('details').value;
+            const budget = document.getElementById('budget').value;
+            const projectname = document.getElementById('projectname').value;
+         
+console.log(userId);
+console.log(fid);
+
+            fetch('/request-project', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                   userId,
+                    fid,
+                    category,
+                    duration,
+                    details,
+                    budget,
+                    projectname,
+                    status:"requested"
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Project submitted successfully:', data);
+                // alert('Project submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error submitting project:', error);
+                alert('Error submitting project. Please try again.');
+            });
+
+            location.reload();
+        }
+
+        function reload(){
+            hideProjectForm(); 
+        }
+
+</script>
+
+</body>
+</html>
